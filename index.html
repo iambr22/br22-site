@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Service Administratif BR22</title>
+<style>
+:root{
+  --violet:#6d28d9; --violet2:#a78bfa; --bg:#f6f5fb; --text:#111827;
+  --card:#fff; --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1100px;margin:auto;padding:0 18px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(246,245,251,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+.topbar .inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;color:var(--violet)}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--violet)}
+.flags{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.flag{border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:999px;padding:8px 10px;cursor:pointer;font-weight:900}
+.flag.active{border-color:rgba(109,40,217,.6);box-shadow:0 6px 18px rgba(109,40,217,.18)}
+.actions{display:flex;gap:10px;align-items:center}
+.btn{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;padding:10px 14px;border-radius:999px;font-weight:900}
+.btn.secondary{background:#111827}
+
+header{background:linear-gradient(120deg,#7c3aed,var(--violet2));color:#fff;padding:66px 0 50px;text-align:center}
+h1{margin:0;font-size:44px;letter-spacing:-.3px}
+.slogan{font-size:56px;font-weight:950;margin:16px 0 10px;letter-spacing:-.8px}
+.sub{font-size:18px;opacity:.95;line-height:1.55;margin:0 auto;max-width:860px}
+.badge{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--violet);padding:10px 14px;border-radius:999px;font-weight:900;box-shadow:0 6px 18px rgba(0,0,0,.10)}
+
+section{padding:36px 0}
+h2{color:var(--violet);margin:36px 0 14px}
+.card{background:var(--card);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.line{height:1px;background:#eee;margin:14px 0}
+.muted{color:#6b7280}
+
+.slider{max-width:980px;margin:0 auto;overflow:hidden;border-radius:18px;box-shadow:var(--shadow);background:#fff}
+.slides{display:flex;animation:slide 45s linear infinite}
+.slides img{width:980px;height:280px;object-fit:cover;flex-shrink:0}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-5880px)}}
+
+.payments{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px}
+.paybadge{display:inline-flex;align-items:center;justify-content:center;padding:12px 14px;border-radius:14px;background:#f3f4f6}
+.payments svg{height:28px}
+
+footer{background:#ede9fe;margin-top:30px;padding:22px 0}
+
+@media (max-width:1020px){
+  .slides img{width:92vw;height:240px}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-552vw)}}
+  .slogan{font-size:44px}
+  h1{font-size:36px}
+  .actions{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="inner">
+      <div class="brand"><span class="dot"></span><span id="brandText"></span></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="flags" id="flags"><button class="flag" type="button" data-lang="fr" title="🇫🇷 Français">🇫🇷</button>
+<button class="flag" type="button" data-lang="en" title="🇬🇧 English">🇬🇧</button>
+<button class="flag" type="button" data-lang="nl" title="🇳🇱 Nederlands">🇳🇱</button>
+<button class="flag" type="button" data-lang="sq" title="🇦🇱 Shqip">🇦🇱</button>
+<button class="flag" type="button" data-lang="tr" title="🇹🇷 Türkçe">🇹🇷</button>
+<button class="flag" type="button" data-lang="ro" title="🇷🇴 Română">🇷🇴</button>
+<button class="flag" type="button" data-lang="uk" title="🇺🇦 Українська">🇺🇦</button>
+<button class="flag" type="button" data-lang="es" title="🇪🇸 Español">🇪🇸</button></div>
+        <div class="actions">
+          <a class="btn" id="waBtn" href="https://wa.me/32472921687">WhatsApp</a>
+          <a class="btn secondary" id="mailBtn" href="mailto:contact.thebr22@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <h1 id="brandH1"></h1>
+    <div class="slogan" id="slogan"></div>
+    <p class="sub"><span id="tagline"></span><br><b id="city"></b></p>
+    <div style="margin-top:16px;"><span class="badge">💜 <span id="payTitle"></span></span></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="slider" aria-label="Photos (défilement lent)">
+      <div class="slides">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1450101215322-bf5cd27642fc?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1554774853-b414d0b7b2d7?auto=format&fit=crop&w=1800&q=80" alt="">
+<img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="servicesTitle"></h2>
+    <div class="card" id="servicesBox"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="pricingTitle"></h2>
+    <div class="grid">
+      <div class="card">
+        <div style="font-weight:950;color:var(--violet);font-size:18px;margin:0 0 10px;" id="pricingA"></div>
+        <div id="priceItems"></div>
+        <div class="line"></div>
+        <span class="muted" id="pricingNote"></span>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:950;color:var(--violet);font-size:18px;margin:0 0 10px;" id="pack1Title"></div>
+        <div id="pack1Desc"></div>
+        <div class="line"></div>
+        <span class="muted" id="pack1Note"></span>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:950;color:var(--violet);font-size:18px;margin:0 0 10px;" id="pack2Title"></div>
+        <div id="pack2Desc"></div>
+        <div class="line"></div>
+        <span class="muted" id="pack2Note"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="paymentTitleSection"></h2>
+    <div class="card" style="text-align:center">
+      <p style="margin:0 0 8px;"><b id="payTitle2"></b></p>
+      <div class="payments" aria-label="Moyens de paiement">
+        <span class="paybadge" title="Visa" aria-label="Visa">
+          <svg viewBox="0 0 90 28" role="img"><text x="0" y="22" font-size="22" font-weight="900" fill="#1a1f71" font-family="Segoe UI, Arial">VISA</text></svg>
+        </span>
+        <span class="paybadge" title="Mastercard" aria-label="Mastercard">
+          <svg viewBox="0 0 70 28" role="img"><circle cx="28" cy="14" r="10" fill="#eb001b"/><circle cx="40" cy="14" r="10" fill="#f79e1b" opacity="0.95"/></svg>
+        </span>
+        <span class="paybadge" title="Bancontact" aria-label="Bancontact">
+          <svg viewBox="0 0 130 28" role="img"><text x="0" y="22" font-size="18" font-weight="900" fill="#0051a3" font-family="Segoe UI, Arial">Bancontact</text></svg>
+        </span>
+        <span class="paybadge" title="PayPal" aria-label="PayPal">
+          <svg viewBox="0 0 90 28" role="img"><text x="0" y="22" font-size="20" font-weight="900" fill="#003087" font-family="Segoe UI, Arial">PayPal</text></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="contactTitle"></h2>
+    <div class="card">
+      <div class="grid" style="align-items:center">
+        <div>
+          📧 <b>contact.thebr22@gmail.com</b><br>
+          📱 <b>0472 92 16 87</b><br>
+          🕒 <b id="hours"></b><br>
+          📍 <b id="city2"></b>
+          <div class="line"></div>
+          <span class="muted" id="contactNote"></span>
+        </div>
+        <div style="text-align:center">
+          <a class="btn" href="https://wa.me/32472921687" id="waBtn2">WhatsApp</a><br><br>
+          <a class="btn secondary" href="mailto:contact.thebr22@gmail.com" id="mailBtn2">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2025 Service Administratif BR22</div>
+</footer>
+
+<script>
+const DATA = {"fr": {"brand": "Service Administratif BR22", "slogan": "L’administratif, à portée de main.", "tagline": "Factures • Devis • CV • Courriers • Excel", "city": "Bruxelles", "sections": {"services": "Services", "pricing": "Tarifs", "payment": "Paiement", "contact": "Contact"}, "services": ["Factures & devis professionnels", "CV & lettres de motivation", "Courriers & emails administratifs", "Mise en page PDF / Word", "Tableaux Excel", "Traductions : FR / ALB / EN"], "pricing": {"a": "À la carte", "items": ["Facture / devis : 12 €", "Courrier / email : 10 €", "CV : 15 €", "Lettre de motivation : 12 €", "Mise en page (PDF/Word) : 8 €", "Traduction simple : 10 €"], "note": "Option express (2–3h) : +10€ (selon dispo).", "pack1": {"title": "Pack Express — 25 €", "desc": "3 petites tâches • Délai rapide", "note": "Idéal pour 1–2 documents + 1 email."}, "pack2": {"title": "Pack Bureau — 55 €", "desc": "Plusieurs tâches • 1 à 2 jours", "note": "Pour dossiers plus complets."}}, "paymentTitle": "Paiement par carte / PayPal", "contactNote": "Réponse rapide via WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11h – 19h"}, "en": {"brand": "BR22 Administrative Services", "slogan": "Administration at your fingertips.", "tagline": "Invoices • Quotes • CV • Letters • Excel", "city": "Brussels", "sections": {"services": "Services", "pricing": "Pricing", "payment": "Payment", "contact": "Contact"}, "services": ["Invoices & professional quotes", "CVs & cover letters", "Administrative letters & emails", "PDF / Word formatting", "Excel spreadsheets", "Translations: FR / ALB / EN"], "pricing": {"a": "À la carte", "items": ["Invoice / quote: €12", "Letter / email: €10", "CV: €15", "Cover letter: €12", "Formatting (PDF/Word): €8", "Simple translation: €10"], "note": "Express option (2–3h): +€10 (subject to availability).", "pack1": {"title": "Express Pack — €25", "desc": "3 small tasks • Fast turnaround", "note": "Best for 1–2 documents + 1 email."}, "pack2": {"title": "Office Pack — €55", "desc": "Multiple tasks • 1–2 days", "note": "For larger requests."}}, "paymentTitle": "Card / PayPal payments", "contactNote": "Fast reply via WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}, "nl": {"brand": "BR22 Administratieve Diensten", "slogan": "Administratie binnen handbereik.", "tagline": "Facturen • Offertes • CV • Brieven • Excel", "city": "Brussel", "sections": {"services": "Diensten", "pricing": "Tarieven", "payment": "Betaling", "contact": "Contact"}, "services": ["Facturen & professionele offertes", "CV’s & motivatiebrieven", "Administratieve brieven & e-mails", "Opmaak PDF / Word", "Excel-tabellen", "Vertalingen: FR / ALB / EN"], "pricing": {"a": "Per stuk", "items": ["Factuur / offerte: €12", "Brief / e-mail: €10", "CV: €15", "Motivatiebrief: €12", "Opmaak (PDF/Word): €8", "Eenvoudige vertaling: €10"], "note": "Express optie (2–3u): +€10 (afhankelijk van beschikbaarheid).", "pack1": {"title": "Express-pakket — €25", "desc": "3 kleine taken • Snel", "note": "Ideaal voor 1–2 documenten + 1 e-mail."}, "pack2": {"title": "Kantoor-pakket — €55", "desc": "Meerdere taken • 1–2 dagen", "note": "Voor uitgebreidere dossiers."}}, "paymentTitle": "Betaling met kaart / PayPal", "contactNote": "Snelle reactie via WhatsApp.", "emailLabel": "E-mail", "whatsLabel": "WhatsApp", "hours": "11u – 19u"}, "sq": {"brand": "Shërbime Administrative BR22", "slogan": "Administrata, në dorën tuaj.", "tagline": "Fatura • Ofertë • CV • Letra • Excel", "city": "Bruksel", "sections": {"services": "Shërbimet", "pricing": "Çmimet", "payment": "Pagesa", "contact": "Kontakt"}, "services": ["Fatura & oferta profesionale", "CV & letër motivimi", "Letra & email administrativ", "Formatim PDF / Word", "Tabela Excel", "Përkthime: FR / ALB / EN"], "pricing": {"a": "Sipas shërbimit", "items": ["Faturë / ofertë: 12 €", "Letër / email: 10 €", "CV: 15 €", "Letër motivimi: 12 €", "Formatim (PDF/Word): 8 €", "Përkthim i thjeshtë: 10 €"], "note": "Opsion Express (2–3h): +10€ (sipas disponueshmërisë).", "pack1": {"title": "Paketa Express — 25 €", "desc": "3 detyra të vogla • Shpejt", "note": "Ideal për 1–2 dokumente + 1 email."}, "pack2": {"title": "Paketa Zyrë — 55 €", "desc": "Disa detyra • 1–2 ditë", "note": "Për dosje më të mëdha."}}, "paymentTitle": "Pagesë me kartë / PayPal", "contactNote": "Përgjigje e shpejtë në WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}, "tr": {"brand": "BR22 İdari Hizmetler", "slogan": "İdari işleriniz, parmaklarınızın ucunda.", "tagline": "Fatura • Teklif • CV • Yazışma • Excel", "city": "Brüksel", "sections": {"services": "Hizmetler", "pricing": "Fiyatlar", "payment": "Ödeme", "contact": "İletişim"}, "services": ["Fatura ve profesyonel teklifler", "CV ve ön yazı", "İdari mektup ve e-postalar", "PDF / Word düzenleme", "Excel tabloları", "Çeviriler: FR / ALB / EN"], "pricing": {"a": "Tek tek", "items": ["Fatura / teklif: 12 €", "Mektup / e-posta: 10 €", "CV: 15 €", "Ön yazı: 12 €", "Düzenleme (PDF/Word): 8 €", "Basit çeviri: 10 €"], "note": "Express seçenek (2–3s): +10€ (uygunluğa bağlı).", "pack1": {"title": "Express Paket — 25 €", "desc": "3 küçük iş • Hızlı", "note": "1–2 belge + 1 e-posta için ideal."}, "pack2": {"title": "Ofis Paket — 55 €", "desc": "Birden fazla iş • 1–2 gün", "note": "Daha kapsamlı talepler için."}}, "paymentTitle": "Kart / PayPal ile ödeme", "contactNote": "WhatsApp üzerinden hızlı dönüş.", "emailLabel": "E-posta", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}, "ro": {"brand": "Servicii Administrative BR22", "slogan": "Administrația, la îndemâna dumneavoastră.", "tagline": "Facturi • Oferte • CV • Scrisori • Excel", "city": "Bruxelles", "sections": {"services": "Servicii", "pricing": "Tarife", "payment": "Plată", "contact": "Contact"}, "services": ["Facturi și oferte profesionale", "CV și scrisoare de intenție", "Scrisori și emailuri administrative", "Formatare PDF / Word", "Tabele Excel", "Traduceri: FR / ALB / EN"], "pricing": {"a": "La bucată", "items": ["Factură / ofertă: 12 €", "Scrisoare / email: 10 €", "CV: 15 €", "Scrisoare de intenție: 12 €", "Formatare (PDF/Word): 8 €", "Traducere simplă: 10 €"], "note": "Opțiune Express (2–3h): +10€ (în funcție de disponibilitate).", "pack1": {"title": "Pachet Express — 25 €", "desc": "3 sarcini mici • Rapid", "note": "Ideal pentru 1–2 documente + 1 email."}, "pack2": {"title": "Pachet Birou — 55 €", "desc": "Mai multe sarcini • 1–2 zile", "note": "Pentru solicitări mai complexe."}}, "paymentTitle": "Plată cu card / PayPal", "contactNote": "Răspuns rapid pe WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}, "uk": {"brand": "Адміністративні послуги BR22", "slogan": "Адміністрація у вас під рукою.", "tagline": "Рахунки • Пропозиції • CV • Листи • Excel", "city": "Брюссель", "sections": {"services": "Послуги", "pricing": "Ціни", "payment": "Оплата", "contact": "Контакти"}, "services": ["Рахунки та професійні пропозиції", "CV та мотиваційні листи", "Адміністративні листи та email", "Форматування PDF / Word", "Таблиці Excel", "Переклади: FR / ALB / EN"], "pricing": {"a": "За послугу", "items": ["Рахунок / пропозиція: 12 €", "Лист / email: 10 €", "CV: 15 €", "Мотиваційний лист: 12 €", "Форматування (PDF/Word): 8 €", "Простий переклад: 10 €"], "note": "Express (2–3 год): +10€ (за наявності).", "pack1": {"title": "Пакет Express — 25 €", "desc": "3 невеликі задачі • Швидко", "note": "Ідеально для 1–2 документів + 1 email."}, "pack2": {"title": "Пакет Office — 55 €", "desc": "Більше задач • 1–2 дні", "note": "Для більших запитів."}}, "paymentTitle": "Оплата карткою / PayPal", "contactNote": "Швидка відповідь у WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}, "es": {"brand": "Servicios Administrativos BR22", "slogan": "La administración al alcance de su mano.", "tagline": "Facturas • Presupuestos • CV • Cartas • Excel", "city": "Bruselas", "sections": {"services": "Servicios", "pricing": "Precios", "payment": "Pago", "contact": "Contacto"}, "services": ["Facturas y presupuestos profesionales", "CV y carta de presentación", "Cartas y emails administrativos", "Maquetación PDF / Word", "Hojas de cálculo Excel", "Traducciones: FR / ALB / EN"], "pricing": {"a": "Por servicio", "items": ["Factura / presupuesto: 12 €", "Carta / email: 10 €", "CV: 15 €", "Carta de presentación: 12 €", "Maquetación (PDF/Word): 8 €", "Traducción simple: 10 €"], "note": "Opción Express (2–3h): +10€ (según disponibilidad).", "pack1": {"title": "Pack Express — 25 €", "desc": "3 tareas pequeñas • Rápido", "note": "Ideal para 1–2 documentos + 1 email."}, "pack2": {"title": "Pack Oficina — 55 €", "desc": "Varias tareas • 1–2 días", "note": "Para solicitudes más completas."}}, "paymentTitle": "Pago con tarjeta / PayPal", "contactNote": "Respuesta rápida por WhatsApp.", "emailLabel": "Email", "whatsLabel": "WhatsApp", "hours": "11:00 – 19:00"}};
+
+function setLang(lang) {
+  if(!DATA[lang]) lang = 'fr';
+  document.documentElement.lang = lang;
+
+  // Active flag
+  document.querySelectorAll('.flag').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+
+  const d = DATA[lang];
+  document.getElementById('brandText').textContent = d.brand;
+  document.getElementById('brandH1').textContent = d.brand;
+  document.getElementById('slogan').textContent = d.slogan;
+  document.getElementById('tagline').textContent = d.tagline;
+  document.getElementById('city').textContent = d.city;
+  document.getElementById('city2').textContent = d.city;
+
+  // Sections
+  document.getElementById('servicesTitle').textContent = d.sections.services;
+  document.getElementById('pricingTitle').textContent = d.sections.pricing;
+  document.getElementById('paymentTitleSection').textContent = d.sections.payment;
+  document.getElementById('contactTitle').textContent = d.sections.contact;
+
+  // Buttons labels (top + bottom)
+  document.getElementById('waBtn').textContent = d.whatsLabel;
+  document.getElementById('waBtn2').textContent = d.whatsLabel;
+  document.getElementById('mailBtn').textContent = d.emailLabel;
+  document.getElementById('mailBtn2').textContent = d.emailLabel;
+
+  // Services
+  const box = document.getElementById('servicesBox');
+  box.innerHTML = d.services.map(s => '✔ ' + s).join('<br>');
+
+  // Pricing
+  document.getElementById('pricingA').textContent = d.pricing.a;
+  document.getElementById('priceItems').innerHTML = d.pricing.items.map(x => '<div>' + x + '</div>').join('');
+  document.getElementById('pricingNote').textContent = d.pricing.note;
+
+  document.getElementById('pack1Title').textContent = d.pricing.pack1.title;
+  document.getElementById('pack1Desc').textContent = d.pricing.pack1.desc;
+  document.getElementById('pack1Note').textContent = d.pricing.pack1.note;
+
+  document.getElementById('pack2Title').textContent = d.pricing.pack2.title;
+  document.getElementById('pack2Desc').textContent = d.pricing.pack2.desc;
+  document.getElementById('pack2Note').textContent = d.pricing.pack2.note;
+
+  // Payment
+  document.getElementById('payTitle').textContent = d.paymentTitle;
+  document.getElementById('payTitle2').textContent = d.paymentTitle;
+
+  // Contact
+  document.getElementById('contactNote').textContent = d.contactNote;
+  document.getElementById('hours').textContent = d.hours;
+
+  localStorage.setItem('br22_lang', lang);
+  const url = new URL(window.location.href);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url.toString());
+}
+
+document.getElementById('flags').addEventListener('click', (e) => {
+  const btn = e.target.closest('.flag');
+  if(!btn) return;
+  setLang(btn.dataset.lang);
+});
+
+const saved = localStorage.getItem('br22_lang');
+const params = new URLSearchParams(window.location.search);
+setLang(params.get('lang') || saved || 'fr');
+</script>
+
+</body>
+</html>
